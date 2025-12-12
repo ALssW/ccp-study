@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,9 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="01_HelloWorld.cpp" />
-    <ClCompile Include="02_变量.cpp" />
-    <ClCompile Include="03_常量.cpp" />
+    <ClCompile Include="1、基础\01_HelloWorld.cpp" />
+    <ClCompile Include="1、基础\02_变量.cpp" />
+    <ClCompile Include="1、基础\03_常量.cpp" />
+    <ClCompile Include="1、基础\04_关键字.cpp" />
+    <ClCompile Include="1、基础\05_标识符.cpp" />
+    <ClCompile Include="2、数据类型\01_整型.cpp" />
+    <ClCompile Include="2、数据类型\02_sizeof.cpp" />
+    <ClCompile Include="2、数据类型\03_实型.cpp" />
+    <ClCompile Include="2、数据类型\04_字符型.cpp" />
+    <ClCompile Include="2、数据类型\05_字符串型.cpp" />
+    <ClCompile Include="2、数据类型\06_布尔类型.cpp" />
+    <ClCompile Include="2、数据类型\07_数据输入.cpp" />
+    <ClCompile Include="3、运算符\01_算术运算符.cpp" />
+    <ClCompile Include="3、运算符\02_赋值运算符.cpp" />
+    <ClCompile Include="3、运算符\03_比较运算符.cpp" />
+    <ClCompile Include="3、运算符\04_逻辑运算符.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

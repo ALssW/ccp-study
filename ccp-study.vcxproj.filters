@@ -13,16 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\一、基础">
+      <UniqueIdentifier>{d6dac610-6199-49d7-9f20-20a74522c74e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="01_HelloWorld.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="1、基础\01_HelloWorld.cpp">
+      <Filter>源文件\1、基础</Filter>
     </ClCompile>
-    <ClCompile Include="02_变量.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="1、基础\02_变量.cpp">
+      <Filter>源文件\1、基础</Filter>
     </ClCompile>
-    <ClCompile Include="03_常量.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="1、基础\03_常量.cpp">
+      <Filter>源文件\1、基础</Filter>
+    </ClCompile>
+    <ClCompile Include="1、基础\04_关键字.cpp">
+      <Filter>源文件\1、基础</Filter>
+    </ClCompile>
+    <ClCompile Include="1、基础\05_标识符.cpp">
+      <Filter>源文件\1、基础</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
