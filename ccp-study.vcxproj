@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="01_HellowWorld.cpp" />
+    <ClCompile Include="01_HelloWorld.cpp" />
+    <ClCompile Include="02_变量.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="02_变量.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

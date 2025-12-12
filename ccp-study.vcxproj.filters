@@ -15,8 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="01_HellowWorld.cpp">
+    <ClCompile Include="01_HelloWorld.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="02_变量.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="02_变量.md">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>
