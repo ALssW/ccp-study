@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int main()
+int main_2()
 {
 	// 数据类型 变量名 = 初始化
 	int a = 10;

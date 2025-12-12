@@ -21,9 +21,10 @@
   <ItemGroup>
     <ClCompile Include="01_HelloWorld.cpp" />
     <ClCompile Include="02_变量.cpp" />
+    <ClCompile Include="03_常量.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="02_变量.md" />
+    <None Include="README.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

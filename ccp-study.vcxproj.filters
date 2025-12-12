@@ -21,9 +21,12 @@
     <ClCompile Include="02_变量.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="03_常量.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="02_变量.md">
+    <None Include="README.md">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>

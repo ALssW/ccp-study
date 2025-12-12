@@ -9,7 +9,7 @@ using namespace std;
 	main 函数是程序的入口点
 	每个 C++ 程序都必须有一个 main 函数
 */
-int main()
+int main_1()
 {
 	// 输出 Hello, World!
 	cout << "Hello, World!" << endl;
