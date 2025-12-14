@@ -35,6 +35,9 @@
     <ClCompile Include="3、运算符\02_赋值运算符.cpp" />
     <ClCompile Include="3、运算符\03_比较运算符.cpp" />
     <ClCompile Include="3、运算符\04_逻辑运算符.cpp" />
+    <ClCompile Include="4、程序流程结构\01_if.cpp" />
+    <ClCompile Include="4、程序流程结构\02_三目运算符.cpp" />
+    <ClCompile Include="4、程序流程结构\03_switch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
