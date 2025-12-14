@@ -38,9 +38,14 @@
     <ClCompile Include="4、程序流程结构\01_if.cpp" />
     <ClCompile Include="4、程序流程结构\02_三目运算符.cpp" />
     <ClCompile Include="4、程序流程结构\03_switch.cpp" />
+    <ClCompile Include="6、函数\swap.cpp" />
+    <ClCompile Include="7、指针\01_指针的定义和使用.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="6、函数\swap.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

@@ -4,7 +4,7 @@ using namespace std;
 int main_201()
 {
 	// 短整型
-	short num1 = 32798;
+	short num1 = 32797;
 	cout << "num1 = " << num1 << endl; // num1 = -32738
 
 	// 整型
