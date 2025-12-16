@@ -40,6 +40,9 @@
     <ClCompile Include="4、程序流程结构\03_switch.cpp" />
     <ClCompile Include="6、函数\swap.cpp" />
     <ClCompile Include="7、指针\01_指针的定义和使用.cpp" />
+    <ClCompile Include="8、结构体\01_结构体的定义和使用.cpp" />
+    <ClCompile Include="8、结构体\02_结构体数组.cpp" />
+    <ClCompile Include="8、结构体\03_结构体指针.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -71,7 +74,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">

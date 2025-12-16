@@ -1,4 +1,4 @@
-﻿﻿﻿﻿# C++
+﻿# C++
 
 C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。
 
@@ -941,3 +941,152 @@ swap(&a, &b);
 
 
 # 结构体
+
+结构体属于用户自定义的数据类型，允许用户存储不同的数据类型
+
+
+
+## 定义和使用
+
+[查看源码](8、结构体/01_结构体的定义和使用.cpp "结构体的定义与使用")
+
+`struce 结构体名 { 结构体成员列表 };`
+
+通过结构体创建变量的方式有三种：
+
+* struct 结构体名 变量名
+* struct 结构体名 变量名 = {成员1, 成员2};
+* 定义结构体时顺便创建变量
+
+```cpp
+struct student 
+{
+    string name;
+    int age;
+    int scode;
+};
+```
+
+```cpp
+// 定义结构体
+struct Student
+{
+	// 成员列表
+	string name;
+	int age;
+	int score;
+} stu3; // 创建方式三：定义结构体的同时创建变量 s3
+
+// 创建方式一：
+struct Student stu1;
+// struct 可省略
+// Student stu1;
+stu1.name = "张三";
+stu1.age = 20;
+stu1.score = 90;
+
+cout << "Name: " << stu1.name << ", Age: " << stu1.age << ", Score: " << stu1.score << '\n';
+
+// 创建方式二：
+Student stu2 = {"李四", 25, 95};
+cout << "Name: " << stu2.name << ", Age: " << stu2.age << ", Score: " << stu2.score << '\n';
+
+// 在定义结构体的同时创建变量
+stu3.name = "王五";
+stu3.age = 22;
+stu3.score = 88;
+cout << "Name: " << stu3.name << ", Age: " << stu3.age << ", Score: " << stu3.score << '\n';
+```
+
+
+
+## 结构体数组
+
+[查看源码](8、结构体/02_结构体数组.cpp "结构体数组")
+
+将自定义的结构体放入数组中维护
+
+`struct 结构体名 数组名[元素个数] = {{}, {}, {}, ...}`
+
+```cpp
+// 定义结构体
+struct Student
+{
+	// 成员列表
+	string name;
+	int age;
+	int score;
+};
+
+// 创建结构体数组
+Student stuArr[3] = 
+{
+    {"张三", 25, 95},
+    {"李四", 25, 95},
+    {"王五", 25, 95}
+};
+
+// 访问并修改结构体数组中的元素
+stuArr[2].name = "赵六";
+stuArr[2].age = 20;
+
+// 遍历结构体
+for (int i = 0; i < 3; i++)
+{
+    cout << "name: " << stuArr[i].name << ", 年龄: " << stuArr[i].age << ", 分数: " << stuArr[i].score << endl;
+}
+
+```
+
+
+
+## 结构体指针
+
+通过指针访问结构体中的成员
+
+* 利用操作符 `->` 或 `*` 解引用可以通过结构体指针访问结构体属性
+
+```cpp
+struct Student
+{
+	// 成员列表
+	string name;
+	int age;
+	int score;
+};
+
+Student stu1 = { "张三", 20, 60 };
+
+// 将指针指向结构体变量
+Student* stuPtr = &stu1;
+
+// 通过指针访问结构体成员
+// 方式一：使用解引用操作符 *
+cout << "Name: " << (*stuPtr).name << " Age: " << (*stuPtr).age << " Score: " << (*stuPtr).score << endl;
+// 方式二：使用箭头操作符 ->
+cout << "Name: " << stuPtr->name << " Age: " << stuPtr->age << " Score: " << stuPtr->score << endl;
+```
+
+
+
+## 结构体嵌套
+
+结构体的成员也可以是一个结构体
+
+```cpp
+struct Student
+{
+	// 成员列表
+	string name;
+	int age;
+	int score;
+};
+
+struct Teacher 
+{
+  string name;
+  int age;
+  Student stu;
+};
+```
+
