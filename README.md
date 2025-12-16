@@ -653,6 +653,8 @@ cout << "6 --" << endl;
 
 一个存放了相同类型的数据元素
 
+在传递时数组的数据类型自动转换为指针类型
+
 
 
 ## 一维数组
@@ -1084,9 +1086,80 @@ struct Student
 
 struct Teacher 
 {
-  string name;
-  int age;
-  Student stu;
+	// 成员列表
+	string name;
+	int age;
+	Student stu;
 };
+
+Teacher t1;
+t1.name = "张三";
+t1.age = 20;
+t1.stu.name = "李四";
+t1.stu.age = 10;
+t1.stu.score = 100;
+```
+
+
+
+## 结构体做为函数参数
+
+结构体也可以作为参数传入函数
+
+```cpp
+struct Student
+{
+	// 成员列表
+	string name;
+	int age;
+	int score;
+};
+
+Student stu;
+stu.name = "李四";
+stu.age = 10;
+stu.score = 100;
+printStudent(stu, &stu)
+
+void printStudent(Student stu1, Student* stu2) 
+{
+ 	stu1.age = 20;
+    // 该形参的值被修改，但实参未修改
+    cout << "Name: " << stu1.name << " Age: " << stu1.age << " Score: " << stu1.score << endl;
+    
+    stu2->age = 20;
+    // 该形参的值被修改，实参也被修改
+    cout << "Name: " << stu2->name << " Age: " << stu2->age << " Score: " << stu2->score << endl;
+}
+```
+
+
+
+## 结构体中 const 的使用场景
+
+使用 const 限定成员，以防止误操作
+
+```cpp
+struct Student
+{
+	string name;
+	int age;
+    // 使用 const 修饰成员表示为常量, 不可修改
+	const int score;
+};
+
+Student stu;
+stu.name = "李四";
+stu.age = 10;
+stu.score = 100;
+printStudent(&stu)
+
+void printStudent(const Student* stu1) 
+{
+    // Error stu1 为 const 修饰参数，不可修改
+    // stu1->age = 20;
+    
+    cout << "Name: " << stu1->name << " Age: " << stu1->age << " Score: " << stu1->score << endl;
+}
 ```
 

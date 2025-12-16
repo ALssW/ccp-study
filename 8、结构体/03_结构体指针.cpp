@@ -10,8 +10,7 @@ struct Student
 	int score;
 };
 
-
-int main()
+int main_0803()
 {
 	Student stu1 = {"张三", 20, 60};
 

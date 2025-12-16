@@ -90,6 +90,9 @@
     <ClCompile Include="8、结构体\03_结构体指针.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="8、结构体\04_结构体案例.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
