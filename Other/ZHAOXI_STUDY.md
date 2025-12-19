@@ -1,3 +1,5 @@
+FROM: 朝夕教育
+
 # 文件结构
 
 **Headers**：首文件（头文件），描述一个类，一个文件元素清单；
@@ -18,7 +20,7 @@
 
 * `#include ""`: 先在自定义目录中查找引入的文件，找不到再到系统路径中查找
 
-### 重复引用
+## 重复引用
 
 有如下代码结构：
 
@@ -42,7 +44,7 @@ class Clazz2 {};
 
 
 
-### #ifdef-define-endif 与 #pragma once
+## #ifdef-define-endif 与 #pragma once
 
 用于防止同一个文件在编译时被重复包含和编译，引起多重定义的问题
 
@@ -125,7 +127,7 @@ numeric_limits<int>::min; // -2147483648
 
 
 
-### 枚举
+## 枚举
 
 用于声明一些固定长度的数据
 
@@ -177,3 +179,64 @@ for (color e : {RED, GREEN, BLUE})
 }
 ```
 
+
+
+## 字符和字符串
+
+字符串实际是使用 `null` 字符 `\0` 终止的一维字符数组，字符数组的末尾会存储一个空字符
+
+```cpp
+// C 的使用方式
+char ch[7] = {'A', 'B', 'C', 'D', 'E', 'F', '\0'};
+cout << ch << endl; // ABCDEF
+
+// C++ 的使用方式
+char str1[] = "runoob";
+char str2[] = "google";
+char str3[];
+
+strcpy(str3, str1); // 将 str1 复制到 str3
+strcat(str1, str2); // 将 str1 和 str2 拼接
+strlen(str1); // 计算字符串长度
+
+// 使用 C++ 的字符串类型
+#include <string>
+string str1 = "runoob";
+
+
+```
+
+## 日期和时间
+
+`ctime` 库
+
+```cpp
+#include <ctime>
+// 获取 1970-1-1 至今的秒数
+time_t now = time(0);
+// 转为字符串
+char* dt = ctime(&now); // 获取本地日期和时间
+
+// 转为 tm 结构 时区日期时间
+tm* gmtm = gmtime(&now);
+dt = asctime(gmtm); // UTC 时间
+
+// 转为 localtime
+tm* ltm = localtime(&now);
+
+// 可以拆解成不同的时间维度
+ltm->tm_year; // 年
+ltm->tm_mon;  // 月
+ltm->tm_day;  // 日
+ltm->tm_hour; // 时
+ltm->tm_min;  // 分
+ltm->tm_sec;  // 秒
+```
+
+## 常量
+
+定义一个不可修改的值
+
+常量：`const 数据类型 常量名 = 常量值`
+
+宏常量：`#define 常量名 常量值`
