@@ -94,3 +94,86 @@ class Clazz2 {};
 #include "class2.cpp"
 ```
 
+
+
+# 数据类型
+
+C++是强类型语言
+
+数据类型决定了变量怎么在内存中存储与解析
+
+
+
+## 内存和数据类型的关系
+
+![image-20251218220143203](.assets/image-20251218220143203.png)
+
+
+
+## 基础类型
+
+`sizeof`: 获取类型所占字节数
+
+`numeric_limits<TYPE>`: 通过`TYPE`泛型获取对应类型的最大最小值
+
+```cpp
+sizeof(int) // 4
+
+numeric_limits<int>::max; // 2147483647
+numeric_limits<int>::min; // -2147483648
+```
+
+
+
+### 枚举
+
+用于声明一些固定长度的数据
+
+**枚举默认初始值**
+
+```cpp
+enum color
+{
+  RED, GREEN, BLUE  
+};
+
+cout << RED << endl; // 0 输出枚举定义时的下标顺序
+cout << GREEN << endl; // 1
+```
+
+
+
+**枚举手动初始化**
+
+```cpp
+enum color
+{
+  RED = 1, GREEN = 2, BLUE  
+};
+
+cout << RED << endl; // 1
+cout << GREEN << endl; // 2
+```
+
+```cpp
+// 枚举可以用于类型声明
+color car = RED;
+
+// 也可用于类型赋值与赋值后计算
+int num = RED;
+num++;
+// 但无法单独进行计算
+RED++; // 错误
+
+// 只能使用枚举中定义的值
+color car = YELLOW; // 错误  枚举没有定义YELLOW
+// 自定义一个枚举变量
+color color1 = color(1);
+
+// 循环遍历枚举
+for (color e : {RED, GREEN, BLUE}) 
+{
+    cout << e << endl;
+}
+```
+
