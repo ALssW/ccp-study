@@ -177,3 +177,190 @@ for (color e : {RED, GREEN, BLUE})
 }
 ```
 
+
+
+# 函数
+
+## 匿名函数
+
+lambda 表达式是一种允许内联函数的特性，它可以用于不需要重用和命名的代码片段
+
+`[capture list] (paramters) mutable -> return type {function body}`
+
+```cpp
+auto fun = []() {return 100;};
+int result = fun();
+
+auto sum = [](int i, int j) {return i + j;};
+int result = sum(100, 200);
+```
+
+`[capture list]` 为需要使用到的外部变量
+
+```cpp
+int x = 10;
+auto fun = [x](int y) {
+    // x++; // error 无修饰的捕获参数默认为常量，无法修改
+    return x + y;
+};
+
+// 使用引用
+int x = 10;
+auto fun = [&x](int y) {
+	x = 100;
+    return x + y;
+};
+
+// 自动捕获
+int x = 10;
+auto fun = [=](int y) {
+    return x + y;
+};
+
+// 混合捕获
+int x = 10;
+int y = 20;
+int z = 30;
+auto fun = [=, y, &z](int i) {
+    z = 40;
+    return i+ x + y + z
+};
+
+```
+
+`mutable` 修饰 lambda 函数中按值捕获的参数可以在函数体修改
+
+```
+int x = 10;
+auto fun = [x](int y) {
+    // x++; // error 无修饰的捕获参数默认为常量，无法修改还
+    return x + y;
+};
+
+auto fun = [x](int y) mutable {
+    x++; // 允许
+    return x + y;
+};
+```
+
+`noexcept` 表示 lambda 函数不会抛出异常
+
+```cpp
+auto fun = []() {
+	throw(0); // 允许
+};
+
+auto fun = []() noexcept {
+	throw(0); // 不允许
+};
+```
+
+
+
+# 异常
+
+`try` `catch`  `throw`
+
+## 抛出
+
+```cpp
+throw -1; // throw 一个 int 值
+throw ENUM_INVALID_INDEX; // throw 一个 枚举值
+throw "Can not take square root of negative number"; // throw 一个C样式字符串 (const char*)
+throw dX; // throw 一个定义的变量
+throw MyException("Fatal Error"); // Throw 一个 MyException 类的对象
+```
+
+
+
+## 异常处理
+
+```
+#include <iostream>
+#include <string>
+
+int main()
+{
+    try
+    {
+        // 抛出异常
+        throw -1; // 这是一个简单的例子
+    }
+    catch (double) // 注: 没有变量名，因为下方没有使用
+    {
+        // try块内的double异常会在这里处理
+        std::cerr << "We caught an exception of type double\n";
+    }
+    catch (int x)
+    {
+        // try块内的int异常会在这里处理
+        std::cerr << "We caught an int exception with value: " << x << '\n';
+    }
+    catch (const std::string&) // const引用 异常捕获
+    {
+        // try块内的std::string异常会在这里处理
+        std::cerr << "We caught an exception of type std::string\n";
+    }
+
+    // 异常处理完后，会在这里接着执行
+    std::cout << "Continuing on our merry way\n";
+
+    return 0;
+}
+```
+
+使用 `catch(,,,)` 捕获所有异常
+
+## 常见异常
+
+```cpp
+std::exception;
+std::bad_alloc:
+std::bad_cast;
+std::bad_exception;
+std::bad_typeid;
+std::logic_error:
+std::domain_error;
+std::invalid_argument;
+std::length_error;
+std::out_of_range;
+std::runtime_error;
+std::range_error;
+std:underflow_error; 
+```
+
+
+
+## 自定义异常
+
+```cpp
+struct MyException : public exception 
+{
+  const char* what() const throw() {return "MyException";}
+};
+```
+
+
+
+## 不抛出异常
+
+`noexcept`
+
+修饰函数时表示该函数不会向**调用者**抛出异常
+
+```cpp
+int add(int x, int y) noexcept 
+{
+    throw 1;
+}
+
+int main() 
+{
+    add(1, 2); // terminate
+}
+```
+
+
+
+# 指针
+
