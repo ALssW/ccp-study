@@ -13,86 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\一、基础">
-      <UniqueIdentifier>{d6dac610-6199-49d7-9f20-20a74522c74e}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="1、基础\01_HelloWorld.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="1、基础\02_变量.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="1、基础\03_常量.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="1、基础\04_关键字.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="1、基础\05_标识符.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\01_整型.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\02_sizeof.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\03_实型.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\04_字符型.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\05_字符串型.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\06_布尔类型.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="2、数据类型\07_数据输入.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="3、运算符\01_算术运算符.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="3、运算符\02_赋值运算符.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="3、运算符\03_比较运算符.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="3、运算符\04_逻辑运算符.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="4、程序流程结构\01_if.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="4、程序流程结构\02_三目运算符.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="4、程序流程结构\03_switch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="6、函数\swap.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="7、指针\01_指针的定义和使用.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="8、结构体\01_结构体的定义和使用.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="8、结构体\02_结构体数组.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="8、结构体\03_结构体指针.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="8、结构体\04_结构体案例.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">
@@ -103,5 +23,10 @@
     <ClInclude Include="6、函数\swap.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Other\test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

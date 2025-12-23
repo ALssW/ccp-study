@@ -45,7 +45,7 @@ void printData(Teacher tArr[], int len)
 	}
 }
 
-int main()
+int main_804()
 {
 	// 老师数组
 	Teacher tArr[3];
