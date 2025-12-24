@@ -784,6 +784,81 @@ int main()
 
 
 
+## 默认参数
+
+可以为函数形参赋予默认值
+
+`返回值类型 函数名 (参数=默认值) {}`
+
+```cpp
+int func(int a, int b=10, int c=20) 
+{
+    return a + b + c;
+}
+
+func(10, 20);
+
+func(10, 20, 30);
+```
+
+函数声明时有默认值后，实现不能再添加默认值
+
+> 声明和实现只能有一个存在默认值
+
+```cpp
+int func(int a, int b=10);
+
+int func(int a, int b=10) {} // error
+
+int func(int a, int b) {}    // ok
+```
+
+## 占位参数
+
+`返回值类型 函数名 (数据类型)`
+
+在形参中写明数据类型，但无形参名称即可占位
+
+```cpp
+int func(int a, int);
+
+func(10); // error
+func(10, 1) // ok
+
+int func(int a, int = 10);
+
+func(10); // ok
+```
+
+## 函数重载
+
+* 同一作用域
+* 函数名称相同
+* 函数参数类型不同/个数不同/顺序不同
+
+使用引用重载
+
+```cpp
+int func(int& a);
+int func(const int& a);
+
+int a = 10;
+func(a); // func(int& a)
+
+func(10); // func(const int& a)
+```
+
+默认值重载
+
+```cpp
+int func(int a);
+int func(int a, int b = 10);
+
+func(10); // error
+```
+
+
+
 # 指针
 
 可以通过指针间接访问内存
@@ -1163,3 +1238,8 @@ void printStudent(const Student* stu1)
 }
 ```
 
+
+
+# 类和对象
+
+面向对象三大特性：封装、继承、多态
