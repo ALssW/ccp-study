@@ -1,4 +1,4 @@
-﻿# C++
+﻿#  C++
 
 C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。
 
@@ -494,7 +494,7 @@ cout << "(a > b ? a : b) = 20, a = " << a << endl;
 
 ### switch
 
-[查看源码](4、程序流程结构/02_switch.cpp "switch ")
+[查看源码](4、程序流程结构/03_switch.cpp "switch ")
 
 执行多条件分支语句
 
@@ -1243,3 +1243,338 @@ void printStudent(const Student* stu1)
 # 类和对象
 
 面向对象三大特性：封装、继承、多态
+
+
+
+## 深拷贝和浅拷贝
+
+在拷贝构造函数中，默认使用的是浅拷贝，只会将属性的值拷贝到新的类中，而如果类中包含了指针类型的属性的话，浅拷贝只会将该指针的地址赋值给新的类中。
+
+```cpp
+class Student 
+{
+    private:
+    	string name;
+    	int* score;
+
+    public:
+	    ~Student()
+        {
+        	if(score != NULL) 
+            {
+                delete score;
+                score = NULL;
+            }    
+        }
+};
+
+
+int main() 
+{
+    Student stu1;
+	stu1.name = "123";
+	stu1.score = new int(90);
+
+	Student stu2(stu1);
+	// stu1 和 stu2 的作用域在 main 函数中，当 main 函数结束时会调用析构函数销毁
+    // 由于 Student 中的 score 为指针，并且是浅拷贝将 stu1 中的 score 地址复制给
+    // 了 stu2 的 score，所以这两个 score 指向同一个地址，当 stu1 的析构函数被调
+    // 用时， delete score 清空那这块堆地址，而 stu2 的析构函数又再一次使用了 
+    // delete score, 导致程序崩溃, 使用深拷贝避免该问题
+    return 0;
+}
+```
+
+深拷贝的拷贝构造函数
+
+```cpp
+class Student 
+{
+    private:
+    	string name;
+    	int* score;
+
+    public:
+    	Student(const Student& stu) 
+        {
+            name = stu.name;
+            score = new (*stu.score)
+        }
+    
+	    ~Student()
+        {
+        	if(score != NULL) 
+            {
+                delete score;
+                score = NULL;
+            }    
+        }
+};
+```
+
+
+
+## 初始化列表
+
+`构造函数(): 属性1(值1),属性2(值2)...{}`
+
+```cpp
+class Person 
+{
+    public:
+    	int a;
+    	int b;
+    	int c;
+    
+    	Person(int x, int y) 
+        {
+            a = x;
+            b = y;
+            c = 20
+        }
+    
+    	Person(int x): a(10), b(x) 
+        {
+        	c = x;    
+        }
+};
+
+int main()
+{
+    Person p(10, 20);
+    Person p(10);
+}
+```
+
+## 静态成员
+
+成员变量：
+
+* 所有对象都共享同一份数据
+* 编译阶段就分配内存
+* 类内声明，类外初始化操作
+
+```cpp
+class Student
+{
+    public:
+    	// 类内声明
+    	static int m_A;
+};
+
+// 类外初始化
+int Student::m_A = 10;
+
+int main()
+{
+    // 访问方式
+    Student s1;
+    s1.m_A;
+    
+    Student::m_A;
+}
+```
+
+成员函数：
+
+* 所有对象共享同一个函数
+* 静态成员函数只能访问静态成员变量
+
+```cpp
+class Student
+{
+public:
+    static void say()
+	{
+		std::cout << m_A;
+	}
+};
+
+// 类外初始化
+int Student::m_A = 10;
+
+int main()
+{
+    // 访问方式
+	Student::say();
+}
+```
+
+
+
+## 对象模型和this指针
+
+### 成员变量和成员函数分开存储
+
+类内的成员变量和成员函数分开存储
+
+只有非静态成员变量才属于类的对象上
+
+ ```cpp
+ clss Student 
+ {
+ 	int m_A; // 非静态成员变量 属于类的对象上
+     static int m_B; // 静态成员变量 不属于类的对象上
+     
+     void func {}; // 非静态成员函数 不属于类的对象上
+     
+     static void func2{}; // 静态成员函数 不属于类的对象上
+ };
+ ```
+
+
+
+### this指针
+
+this 指向被调用的成员函数所属的对象
+
+* 当形参和成员变量同名时，可以用 this 指针区分
+* 在类的非静态成员函数中返回对象本身可使用 return *this
+
+```cpp
+class Student 
+{
+public:
+    int age;
+    Person (int age) {
+        this->age = age;
+    }   
+    
+    Student& build(Student& stu){
+        this->age += stu.age;
+        return *this;
+    }
+};
+
+
+```
+
+### 空指针访问成员函数
+
+```cpp
+class Person
+{
+public:
+    int age;
+	void say(){}
+    void say2(){
+        age++;
+    }
+    void say3(){
+        if (this == NULL) 
+        {
+            return;
+        }
+        age++;
+    }
+}
+
+int main()
+{
+    Person* p = NULL;
+    p->say(); // ok
+    p->say2(); // error 访问到了成员属性
+    p->say3(); // ok
+}
+```
+
+
+
+### const 成员函数
+
+**常函数：**
+
+* 常函数内不可以修改成员属性
+* 成员属性声明时使用 mutable 修饰后可在常函数修改
+
+`函数返回值 函数名() const {}`
+
+使用 const 实际上修饰的是 this 指针
+
+**常对象：**
+
+* 常对象只能调用常函数
+
+在对象前加上 const 修饰
+
+`const 类名 标识符;`
+
+```cpp
+class Person
+{
+public:
+    int a;
+    mutable int b;
+    void say()
+    {
+        a = 10; // ok
+        // this = Person* const this;
+        this->a = 10; // ok
+        b = 20; // ok
+    }
+    
+    void say2() const
+    {
+        a = 10; // error
+        // this = const Person* const this;
+        this->a = 10; // error
+        b = 20; // ok
+        this->b = 20; // ok
+    }
+};
+
+int main()
+{
+	Person p1;
+	p1.a = 10; // ok
+
+	const Person p2 { .a = 1, .b = 2 };
+	p2.a = 10; // error
+	p2.b = 10; // ok
+	p2.say(); // error
+	p2.say2(); // ok
+	return 0;
+}
+```
+
+## 友元
+
+在程序中，有些私有属性想让类外的一些特殊函数和类进行访问就可以使用友元
+
+`friend`
+
+* 全局函数做友元
+* 类做友元
+* 成员函数做友元
+
+```cpp
+class Person
+{
+	// 声明全局函数为友元
+	friend void fun(Person* p);
+    // 声明函数为友元
+	friend class Student;
+    // 声明成员函数为友元
+    friend void Student::fun(Person* p);
+    
+private:
+	int age;    
+};
+
+class Student
+{
+    void fun(Person* p);    
+};
+// 类外定义函数
+Student::fun(Person* p) 
+{
+    p->age;
+}
+
+
+void fun(Person* p) 
+{
+    p->age;
+}
+```
+
