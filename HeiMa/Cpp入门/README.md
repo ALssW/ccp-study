@@ -1,4 +1,4 @@
-﻿﻿# C++
+﻿# C++
 
 C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。
 
@@ -1661,3 +1661,92 @@ void fun(Person* p)
 }
 ```
 
+
+
+赋值运算符存在深拷贝浅拷贝问题
+
+```cpp
+class Student
+{
+	int* age;
+
+	Student& operator=(const Student& p);
+};
+
+auto Student::operator=(const Student& p) -> Student&
+{
+	// 默认为浅拷贝，赋值地址，可能会存在重复释放问题
+	// age = p.age;
+
+	// 深拷贝
+	// 赋值前判断，如果在堆区已有空间则先释放
+	if (age != nullptr)
+	{
+		delete age;
+		age = nullptr;
+	}
+
+	age = new int(*p.age);
+	return *this;
+}
+
+```
+
+
+
+### 关系运算符重载
+
+`operator==` `operator!=`  `operator>` `operator<`
+
+## 
+
+### 函数调用运算符重载
+
+仿函数
+
+`operator()`
+
+```cpp
+class Student
+{
+public:
+    int* age;
+    Student(int age) 
+    {
+        this->age = age
+    }
+    void operator()(string text);
+};
+
+void Student::operator=(string text)
+{
+	std::cout << text << endl;
+}
+
+int main()
+{
+    Student stu;
+    stu("Hello");
+}
+
+```
+
+
+
+## 继承
+
+`class 类名 : 继承方式 父类`
+
+继承方式：
+
+* 公共继承
+* 保护继承
+* 私有继承
+
+![image-20251226161844302](./assets/image-20251226161844302-1766737129362-1.png)
+
+### 构造与析构顺序
+
+父类构造 -> 子类构造
+
+子类析构 -> 父类析构

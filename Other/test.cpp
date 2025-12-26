@@ -1,20 +1,35 @@
-#include <iostream>
-
-const int& returnByConstReference(const int& ref)
+class Student
 {
-	return ref;
-}
+	int* age;
 
-int main()
+public:
+	Student(int* age)
+		: age(age)
+	{
+	}
+
+	~Student()
+	{
+		age = nullptr;
+	};
+
+private:
+	Student& operator=(const Student& p);
+};
+
+auto Student::operator=(const Student& p) -> Student&
 {
-	// 案例 1: 直接绑定
-	const int& ref1 { 5 }; // 延长生命周期
-	std::cout << ref1 << '\n'; // okay
+	// 默认为浅拷贝，赋值地址，可能会存在重复释放问题
+	// age = p.age;
 
-	// 案例 2: 间接绑定
-	const int& ref2 { returnByConstReference(5) }; // ref2会绑定到悬空引用
-	std::cout << ref2 << '\n'; // 未定义的行为
+	// 深拷贝
+	// 赋值前判断，如果在堆区已有空间则先释放
+	if (age != nullptr)
+	{
+		delete age;
+		age = nullptr;
+	}
 
-	return
-		0;
+	age = new int(*p.age);
+	return *this;
 }
