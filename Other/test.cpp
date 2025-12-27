@@ -1,28 +1,35 @@
-#include<iostream>
-
-class Person
+class Student
 {
-	friend std::ostream& operator<<(std::ostream& cout, const Person& p);
-public:
-	int age;
-	Person();
+	int* age;
 
-	Person(int age) : age(age), score() {}
+public:
+	Student(int* age)
+		: age(age)
+	{
+	}
+
+	~Student()
+	{
+		age = nullptr;
+	};
 
 private:
-	int score;
+	Student& operator=(const Student& p);
 };
 
-
-std::ostream& operator<<(std::ostream& cout, const Person& p)
+auto Student::operator=(const Student& p) -> Student&
 {
-	cout << "age:" << p.age << "score:" << p.score;
-	return cout;
-}
+	// 默认为浅拷贝，赋值地址，可能会存在重复释放问题
+	// age = p.age;
 
-int main()
-{
-	Person p1(10);
-	Person p2(20);
-	std::cout << p1 << p2;
+	// 深拷贝
+	// 赋值前判断，如果在堆区已有空间则先释放
+	if (age != nullptr)
+	{
+		delete age;
+		age = nullptr;
+	}
+
+	age = new int(*p.age);
+	return *this;
 }

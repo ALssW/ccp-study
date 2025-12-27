@@ -1766,3 +1766,61 @@ int main()
 编译器默认添加到类中
 
 `operator=`
+
+
+### 关系运算符重载
+
+`operator==` `operator!=`  `operator>` `operator<`
+
+## 
+
+### 函数调用运算符重载
+
+仿函数
+
+`operator()`
+
+```cpp
+class Student
+{
+public:
+    int* age;
+    Student(int age) 
+    {
+        this->age = age
+    }
+    void operator()(string text);
+};
+
+void Student::operator=(string text)
+{
+	std::cout << text << endl;
+}
+
+int main()
+{
+    Student stu;
+    stu("Hello");
+}
+
+```
+
+
+
+## 继承
+
+`class 类名 : 继承方式 父类`
+
+继承方式：
+
+* 公共继承
+* 保护继承
+* 私有继承
+
+![image-20251226161844302](./assets/image-20251226161844302-1766737129362-1.png)
+
+### 构造与析构顺序
+
+父类构造 -> 子类构造
+
+子类析构 -> 父类析构
