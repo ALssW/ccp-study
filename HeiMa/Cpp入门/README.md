@@ -1,4 +1,4 @@
-﻿﻿# C++
+﻿﻿﻿# C++
 
 C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。
 
@@ -1661,3 +1661,108 @@ void fun(Person* p)
 }
 ```
 
+
+
+## 运算符重载
+
+对已有的运算符进行重新定义，赋予其另一种功能，以适应不同的数据类型
+
+### 加号	
+
+通过重载 `operator+` 进行实现
+
+```cpp
+class Person
+{
+public:
+	int age;
+	Person();
+
+	Person(int age) : age(age)
+	{
+	}
+	
+    // 成员函数重载
+	Person operator+(const Person& p) const
+	{
+		Person temp;
+		temp.age = this->age + p.age;
+		return temp;
+	}
+};
+
+// 全局函数重载
+Person operator+(const Person& p1, const Person& p2)
+{
+	return p1.age + p2.age;
+}
+
+int main()
+{
+	Person p1(10);
+	Person p2(20);
+	Person p3 = p1.operator+(p2);
+	Person p4 = p1 + p2;
+	Person p5 = operator+(p1, p2);
+	Person p6 = p1 + p2;
+}
+
+```
+
+### 左移
+
+通过重载 `operator<<` 进行实现
+
+`<<` 必须用全局函数重载
+
+```cpp
+#include<iostream>
+
+class Person
+{
+    // 通过友元让全局函数访问私有属性
+	friend std::ostream& operator<<(std::ostream& cout, const Person& p);
+    
+public:
+	int age;
+	Person();
+
+	Person(int age) : age(age), score(50) {}
+
+private:
+	int score;
+};
+
+
+std::ostream& operator<<(std::ostream& cout, const Person& p)
+{
+	cout << "age:" << p.age << "score:" << p.score;
+	return cout;
+}
+
+int main()
+{
+	Person p1(10);
+	Person p2(20);
+	std::cout << p1 << p2;
+}
+
+```
+
+### 递增
+
+前置
+
+`operator++()` `operator--()`
+
+后置
+
+`operator++(int)` `operator--(int)`
+
+
+
+### 赋值
+
+编译器默认添加到类中
+
+`operator=`

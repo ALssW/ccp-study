@@ -1,20 +1,28 @@
-#include <iostream>
+#include<iostream>
 
-const int& returnByConstReference(const int& ref)
+class Person
 {
-	return ref;
+	friend std::ostream& operator<<(std::ostream& cout, const Person& p);
+public:
+	int age;
+	Person();
+
+	Person(int age) : age(age), score() {}
+
+private:
+	int score;
+};
+
+
+std::ostream& operator<<(std::ostream& cout, const Person& p)
+{
+	cout << "age:" << p.age << "score:" << p.score;
+	return cout;
 }
 
 int main()
 {
-	// 案例 1: 直接绑定
-	const int& ref1 { 5 }; // 延长生命周期
-	std::cout << ref1 << '\n'; // okay
-
-	// 案例 2: 间接绑定
-	const int& ref2 { returnByConstReference(5) }; // ref2会绑定到悬空引用
-	std::cout << ref2 << '\n'; // 未定义的行为
-
-	return
-		0;
+	Person p1(10);
+	Person p2(20);
+	std::cout << p1 << p2;
 }
