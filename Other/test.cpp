@@ -1,35 +1,22 @@
-class Student
+#include <iostream>
+using namespace std;
+#include <fstream>
+
+class Person
 {
-	int* age;
-
 public:
-	Student(int* age)
-		: age(age)
-	{
-	}
-
-	~Student()
-	{
-		age = nullptr;
-	};
-
-private:
-	Student& operator=(const Student& p);
+    char name[64];
+    int age;
 };
 
-auto Student::operator=(const Student& p) -> Student&
+int main1()
 {
-	// 默认为浅拷贝，赋值地址，可能会存在重复释放问题
-	// age = p.age;
+    ofstream ofs;
 
-	// 深拷贝
-	// 赋值前判断，如果在堆区已有空间则先释放
-	if (age != nullptr)
-	{
-		delete age;
-		age = nullptr;
-	}
+    ofs.open("person.txt", ios::out | ios::binary);
+    Person p = {.name = "张三", .age = 18 };
+      ofs.write( (const char*)&p, sizeof(p));
 
-	age = new int(*p.age);
-	return *this;
+    ofs.close();
+    return 0;
 }

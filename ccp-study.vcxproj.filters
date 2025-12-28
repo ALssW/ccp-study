@@ -23,9 +23,24 @@
     <ClInclude Include="6、函数\swap.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="HeiMa\Cpp入门\EmployeeManagerSystem\employee.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HeiMa\Cpp入门\EmployeeManagerSystem\work.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Other\test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HeiMa\Cpp入门\EmployeeManagerSystem\employee.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HeiMa\Cpp入门\EmployeeManagerSystem\system.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HeiMa\Cpp入门\EmployeeManagerSystem\manager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

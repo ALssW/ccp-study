@@ -1,4 +1,4 @@
-﻿﻿﻿# C++
+﻿﻿﻿﻿﻿# C++
 
 C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。
 
@@ -1713,7 +1713,11 @@ int main()
 
 通过重载 `operator<<` 进行实现
 
-`<<` 必须用全局函数重载
+`<<` 必须用全局函数重载 
+
+在成员函数中重载的使用 `Person << cout`
+
+在全局函数中重载的使用 `cout << Person`
 
 ```cpp
 #include<iostream>
@@ -1768,13 +1772,13 @@ int main()
 `operator=`
 
 
-### 关系运算符重载
+### 关系运算符
 
 `operator==` `operator!=`  `operator>` `operator<`
 
 ## 
 
-### 函数调用运算符重载
+### 函数调用运算符
 
 仿函数
 
@@ -1817,10 +1821,280 @@ int main()
 * 保护继承
 * 私有继承
 
-![image-20251226161844302](./assets/image-20251226161844302-1766737129362-1.png)
+![image-20251226161844302](./.assets/image-20251226161844302-1766737129362-1.png)
 
 ### 构造与析构顺序
 
 父类构造 -> 子类构造
 
 子类析构 -> 父类析构
+
+
+
+### 同名成员的处理
+
+使用作用域
+
+`子类.父类::父类成员属性`
+
+`子类.父类::父类函数()`
+
+> 如果子类中出现与父类同名的函数，那么父类的所有同名的函数都会被隐藏，不会被重载
+
+
+
+### 同名静态成员的处理
+
+`子类::父类::父类静态成员属性`
+
+`子类::父类::父类静态函数()`
+
+
+
+### 多继承
+
+`class 子类 : 继承方式 父类1, 继承方式 父类2`
+
+实际开发不建议使用
+
+
+
+### 菱形继承与虚继承
+
+假设有一个父类 `Base`，其中有成员属性 `int x`
+
+其下有两个不同的子类 `ABase1` `ABase2`
+
+这两个子类又被子类 `BBase` 继承
+
+这种关系称为菱形继承，`BBase` 同时有了 `ABase1` 和 `ABase2` 的共同父类 `Base` 的成员属性 `x`，在使用时出现了二义性，并且`BBase`有了两份 `x`，易造成资源浪费。
+
+**使用虚继承解决**
+
+`class ABase1 : virtual public Base` 
+
+`class ABase2 : virtual public Base`
+
+`class BBase : public ABase1, public ABase2`
+
+这样在实际的继承中，`BBase` 就只有一份`x`了
+
+
+
+## 多态
+
+* 静态多态：函数重载、运算符重载
+  * 编译阶段确定函数地址
+* 动态多态：派生类和虚函数
+  * 运行阶段确定函数地址
+
+动态多态使用
+
+父类的指针或引用指向子类对象，并且进行函数重写
+
+
+
+```cpp
+class Animal
+{
+public:
+    void speak() {}
+    virtual void speak2() {}
+};
+
+class Cat : public Animal
+{
+public:
+    void speak() {}
+    void speak2() {}
+};
+
+void doSpeak(Animal& a)
+{
+    a.speak(); // Animal speak  在编译时地址就被绑定为 Animal 的函数
+    a.speak2(); // Cat speak    在运行时才会进行地址绑定为实参类型的函数
+}
+
+int main()
+{
+    Cat cat;
+    doSpeak(cat);
+}
+```
+
+
+
+### 纯虚函数与抽象类
+
+纯虚函数 `virtual 返回值类型 函数名 (参数列表) = 0;`
+
+当一个类中有纯虚函数时，这个类就是抽象类
+
+* 抽象类无法实例化
+* 抽象类的子类必须重写父类中的纯虚函数
+
+```cpp
+class Base
+{
+public:
+    virtual void func() = 0;
+};
+```
+
+
+
+### 虚析构和纯虚析构
+
+在多态使用时，父类指针指向子类才有多态，但父类指针在释放时无法调用子类的析构函数
+
+解决方法：父类中使用虚析构或纯虚析构，让子类重写该函数
+
+
+
+**纯虚析构需要声明和实现**
+
+使用类外实现纯虚析构
+
+
+
+# 文件操作
+
+文件操作流 `<fstream>`
+
+* 文本文件
+* 二进制文件
+
+
+
+* ofstream： 写操作
+* ifstream：读操作
+* fstream：读写操作
+
+
+
+## 文本文件
+
+### 写
+
+`ofstream`
+
+文件打开方式
+
+* ios::in：读
+* ios::out：写
+* ios::ate：初始位置在文件尾部
+* ios::app：追加
+* ios::trunc：文件存在则删除再创建
+* ios::binary：二进制方式
+
+**使用完毕使用`close()`关闭流**
+
+```cpp
+#include <fstream>
+
+int main ()
+{
+    ofstream ofs;
+    // 读取文件
+    ofs.open("文件路径", ios::in | ios::out); // 读写方式打开文件
+    ofs << "Something" << endl;
+    
+    ofs.close();
+}
+```
+
+
+
+### 读
+
+`ifstream`
+
+文件读取方式
+
+* 使用 `>>` 输出
+* `ifs.getline(buf, sizeof(buf))`
+* 使用公共函数`getline(ifstream, string)`
+* `ifs.get()` 读取一个字符
+
+**使用完毕使用`close()`关闭流**
+
+```cpp
+#include <fstream>
+
+int main ()
+{
+    ifstream ifs;
+    // 读取文件
+    ifs.open("文件路径", ios::in);
+    
+    if (!ifs.is_open())
+    {
+        cout << "打开失败" << endl;
+        return;
+    }
+    
+    char buf[1024] = {0};
+ 	// 第一种读取方式
+    while (ifs >> buf) 
+    {
+        cout << buf << endl;
+    }
+    
+    // 第二种读取方式
+    while (ifs.getline(buf, sizeof(buf))) 
+    {
+        cout << buf << endl;
+    }
+    
+    // 第三种
+    string buf;
+    while (getline(ifs, buf))
+    {
+        cout << buf << endl;
+    }
+    
+    // 第四种
+    char c;
+    while ( (c = ifs.get()) != EOF )
+    {
+        cout << c << endl;
+    }
+    
+    ifs.close();
+}
+```
+
+
+
+## 二进制文件
+
+以 `ios::binary` 打开文件
+
+
+
+### 写入对象
+
+```cpp
+#include <iostream>
+using namespace std;
+#include <fstream>
+
+class Person
+{
+public:
+    char name[64];
+    int age;
+};
+
+int main()
+{
+    ofstream ofs;
+
+    ofs.open("person.txt", ios::out | ios::binary);
+    Person p = {.name = "张三", .age = 18 };
+      ofs.write( (const char*)&p, sizeof(p));
+
+    ofs.close();
+}
+```
+
