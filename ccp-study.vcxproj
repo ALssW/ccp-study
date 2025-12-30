@@ -23,10 +23,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="6、函数\swap.h" />
+    <ClInclude Include="HeiMa\Cpp入门\TemplateTest\array.h" />
     <ClInclude Include="HeiMa\Cpp入门\EmployeeManagerSystem\employee.h" />
     <ClInclude Include="HeiMa\Cpp入门\EmployeeManagerSystem\work.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="HeiMa\Cpp入门\TemplateTest\array.cpp" />
     <ClCompile Include="HeiMa\Cpp入门\EmployeeManagerSystem\employee.cpp" />
     <ClCompile Include="HeiMa\Cpp入门\EmployeeManagerSystem\manager.cpp" />
     <ClCompile Include="HeiMa\Cpp入门\EmployeeManagerSystem\system.cpp" />
