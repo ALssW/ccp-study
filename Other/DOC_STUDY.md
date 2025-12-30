@@ -41,6 +41,110 @@ int width = 4.5;   // 4
 
 任何未在类、函数或命名空间内定义的名称都隐式的为全局命名空间中的一部分
 
+
+
+# 五、常量与字符串
+
+## constexpr
+
+限制常量为常量表达式，即编译时常量，其初始值在编译时就可已知并不可变
+
+```cpp
+int x { 5 };       // 非 const
+const int y { x }; // 运行时常量 (因为使用非const变量初始化)
+const int z { 5 }; // 编译时常量
+const int w { getValue() }; // 不是很容易判断
+
+int five()
+{
+    return 5;
+}
+
+int main()
+{
+    constexpr double gravity { 9.8 }; // ok: 9.8 是常量表达式
+    constexpr int sum { 4 + 5 };      // ok: 4 + 5 是常量表达式
+    constexpr int something { sum };  // ok: sum 是常量表达式
+
+    std::cout << "Enter your age: ";
+    int age{};
+    std::cin >> age;
+
+    constexpr int myAge { age };      // 编译报错: age 不是常量表达式
+    constexpr int f { five() };       // 编译报错: five() 返回值不是常量表达式
+
+    return 0;
+}
+```
+
+## 字面值常量
+
+字面值是之家插入到代码中的值
+
+```cpp
+return 5;                     // 5 是整数字面值
+bool myNameIsAlex { true };   // true 是bool字面值
+double d { 3.4 };             // 3.4 是double 字面值
+std::cout << "Hello, world!"; // "Hello, world!" 是 C语言格式的字符串字面值
+```
+
+## std::string
+
+C语言样式的字符串无法重新赋值，string可以
+
+```cpp
+char str[] = "123"; // C语言样式
+str = "321"; // error
+
+std::string str2 = "123";
+str2 = "321"; // ok
+```
+
+### 输入字符串
+
+`std::cin` 在读取输入时，遇到空白字符就会终止读取
+
+使用 `std::getline()` 获取完整的字符串
+
+`std::getline(std::cin >> std::ws, str)`
+
+>  输出操作器：`std::ws`, 控制 std::cin 在提取之前忽略前导空格
+
+### string 字面值
+
+双引号字面值默认为C样式的字符串，通过使用s后缀变为 `std::string` 的字符串字面值
+
+`using namespace std::string_literals;`
+
+`"Hello, World"s`
+
+## std::string_view
+
+为了借阅 `std::string` 在传递过程中复制的性能开销，C++17 加入 `std::string_view`
+
+`std::string_view` 是只读字符串，对现有字符串提供只读访问，而不是副本
+
+### string_view 字面值
+
+使用 `sv` 后缀
+
+`using namespace std**::**string_view_literals;`
+
+`"Hello, World"sv`
+
+# 七、作用域与编译链接
+
+## 命名空间
+
+```cpp
+namespace 标识符
+{
+    
+}
+```
+
+
+
 # 十二、复合类型
 
 ## 引用
