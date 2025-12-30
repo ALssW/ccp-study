@@ -2118,3 +2118,228 @@ void swap(T& a, T& b)
 }
 ```
 
+
+### 普通函数与函数模板的区别
+
+* 普通函数调用时，会进行隐式类型装换
+* 函数模板调用时，使用自动类型推导，不会隐式类型转换
+* 函数模板调用时，使用显示指定类型，会发生隐式类型转换
+
+```cpp
+int test1(int a, int b) 
+{
+    return a + b;
+}
+
+template <typename T>
+T test2(T a, T b)
+{
+    return a + b;
+}
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+    char c = 'c';
+
+    cout << test1(a, b) << '\n'; // ok
+    cout << test1(a, c) << '\n'; // ok
+    
+    cout << test2(a, c) << '\n'; // error
+    
+    cout << test2<int>(a, c) << '\n'; // ok
+    
+    return 0;
+}
+```
+
+### 调用规则
+
+* 如果声明或实现的函数模板和普通函数都可以调用，优先调用普通函数
+* 可以通过空模板参数列表来强制调用函数模板 `func<>()`
+* 函数模板也可以重载，函数模板匹配优先级最高
+
+```cpp
+void test(int a, int b);
+
+template<typename T>
+void test(T a, T b);
+
+int main()
+{
+    int a = 1;
+    int b = 2;
+    test(a, b); // 普通函数
+    
+    test<>(a, b); // 函数模板
+    
+    char c = 'a';
+    test(a, c); // 函数模板
+}
+```
+
+
+
+### 模板局限性
+
+有些特定的数据类型不能进行某个操作，但也能通过模板传入函数中，这样是错误的
+
+例如
+
+```cpp
+template <typename T>
+void test(T a, T b)
+{
+	a = b;
+}
+
+int main()
+{
+    int	a[];
+    int b[];
+    test(a, b); // error 数组不能赋值数组
+}
+```
+
+对自定义类型进行未定义操作也是
+
+```cpp
+template <typename T>
+bool test(T& a, T& b)
+{
+	return a == b;
+}
+
+int main()
+{
+    Person p1;
+    Person p2;
+    test(p1, p2); // error person 没有 == 的操作
+}
+```
+
+
+
+1.重载operator=
+
+2.使用具体的类型重载该模板函数
+
+```cpp
+template <typename T>
+bool test(T& a, T& b)
+{
+	return a == b;
+}
+
+template<> bool test(Person& a, Person& b)
+{
+	return a.name == b.name;
+}
+
+int main()
+{
+    Person p1;
+    Person p2;
+    test(p1, p2); // error person 没有 == 的操作
+}
+```
+
+
+
+## 类模板
+
+```cpp
+template <class T, class X = int>
+class Person
+{
+    T name;
+    X age;
+};
+
+int main()
+{
+    Person<string> p1;
+}
+```
+
+
+
+### 成员函数的创建时机
+
+类模板中成员函数和普通类中的成员函数创建时机是有区别的
+
+* 普通类中的成员函数一开始就会创建
+* 类模板中的成员函数在调用时才创建
+
+
+
+### 类模板对象做函数参数
+
+三种传参方式
+
+* 指定传入的模板参数类型
+* 参数模板化
+* 类模板化
+
+
+
+```cpp
+template <class NameType, class AgeType = int>
+class  Person
+{
+    NameType name;
+    AgeType age;
+};
+
+// 指定传入的模板参数类型
+void print(Person<String, int>& p)
+{
+	p.dosomething();
+}
+
+// 参数模板化
+template <typename T1, typename T2>
+void print(Person<T1, T2>& p)
+{
+	p.dosomething();
+}
+
+// 类模板化
+template <typename T>
+vpid print(T& p)
+{
+    p.dosomething();
+}
+```
+
+
+
+### 继承
+
+```cpp
+template <class T>
+class Base
+{
+    T a;
+};
+
+Class A : Base<int> {};
+
+template <class T>
+Class B : Base<T> {};
+
+template <class T1, class T2>
+Class C : Base<T2> {
+    T1 b;
+};
+```
+
+
+
+### 类模板分文件编写
+
+类模板中成员函数的创建时间是在调用阶段，分文件时会编译时无法链接
+
+* 直接包含`.cpp`源文件
+* 将声明和实现写在同一个文件 `.hpp`
