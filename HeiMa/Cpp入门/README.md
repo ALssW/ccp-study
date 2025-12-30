@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿# C++
+﻿# C++
 
 C++ 是一种静态类型的、编译式的、通用的、大小写敏感的、不规则的编程语言，支持过程化编程、面向对象编程和泛型编程。
 
@@ -2095,6 +2095,26 @@ int main()
       ofs.write( (const char*)&p, sizeof(p));
 
     ofs.close();
+}
+```
+
+
+
+# 模板
+
+`template <typename T>`
+
+声明一个范型
+
+## 模板函数
+
+```cpp
+template <typename T>
+void swap(T& a, T& b) 
+{
+    T temp = a;
+    a = b;
+    b = temp;
 }
 ```
 
